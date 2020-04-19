@@ -39,3 +39,22 @@ for i in range(25):
 plt.show()
 
 # Building the model
+model = keras.Sequential([
+    keras.layers.Flatten(input_shape=(28, 28)),
+    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dense(10)
+])
+model.compile(optimizer='adam',
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              metrics=['accuracy']
+              )
+
+# train the model
+model.fit(train_images, train_labels, epochs=10)
+
+# test accuracy
+test_loss, test_acc = model.evaluate(test_images, test_labels, verbose=2)
+print('Test accuracy    : ', test_acc)
+print('Test Loss        : ', test_loss)
+
+# predictions!
